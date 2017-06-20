@@ -1,7 +1,6 @@
 syntax enable
 set noswapfile
-set textwidth=115
-set hlsearch
+set textwidth=120
 set autoindent
 set expandtab
 set shiftwidth=4
