@@ -3,7 +3,7 @@
 # Pull repository
 while true
 do
-    read -p "Pull repository? (y/n)" input
+    read -p "Pull repository? (y/n) " input
     case $input in
         "y"|"Y"*) echo "Pulling repository..."
                  git pull
@@ -15,7 +15,7 @@ done
 # Update ~/.vimrc
 while true
 do
-    read -p "Overwrite local .vimrc file? Current version will be backed up to ~/.depricated.vimrc (y or n)" input
+    read -p "Overwrite local .vimrc file? Current version will be backed up to ~/.depricated.vimrc (y or n) " input
     case $input in
         "y"|"Y") echo "Overwriting ~/.vimrc"
                  mv ~/.vimrc ~/.depricated.vimrc
@@ -29,7 +29,7 @@ done
 # Update ~/.bashrc
 while true
 do
-    read -p "Overwrite local .bashrc file? Current version will be backed up to ~/.depricated.bashrc (y or n)" input
+    read -p "Overwrite local .bashrc file? Current version will be backed up to ~/.depricated.bashrc (y or n) " input
     case $input in
         "y"|"Y") echo "Overwriting local .bashrc..."
                  mv ~/.bashrc ~/.depricated.bashrc
