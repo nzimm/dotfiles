@@ -8,7 +8,6 @@ alias pacman='pacman --color=auto'
 alias yaourt='yaourt --color=auto'
 alias vpn='openconnect laspvpn.colorado.edu'
 alias nc='/usr/bin/netcat'
-alias testnuc='ssh 10.247.12.236'
 
 # get current branch in git repo
 function parse_git_branch() {
