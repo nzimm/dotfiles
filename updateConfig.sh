@@ -39,3 +39,6 @@ do
         *)       echo "Please enter a valid input";;
     esac
 done
+
+# Inform user of bash_aliases
+echo "Please manually import bash_aliases, so as not to lose machine-specific aliases"
