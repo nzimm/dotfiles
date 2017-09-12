@@ -1,6 +1,6 @@
 syntax enable
 set noswapfile
-set textwidth=120
+set textwidth=200
 set autoindent
 set expandtab
 set shiftwidth=4
