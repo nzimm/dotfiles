@@ -22,6 +22,8 @@ function parse_git_branch() {
     fi
 }
 
-GREEN="\[\e[32m\]"
-RESET="\[\e[m\]"
+GREEN="\[$(tput setaf 2)\]"
+BLUE="\[$(tput setaf 27)\]"
+PURPLE="\[$(tput setaf 57)\]"
+RESET="\[$(tput sgr0)\]"
 export PS1="${GREEN}[\u@\h \w]${RESET}\`parse_git_branch\`${GREEN}\$${RESET} "
