@@ -1,5 +1,5 @@
 #
-# ~/.bashrc
+# ~/.bash_profile
 #
 
 #########################################################
@@ -22,4 +22,6 @@ function parse_git_branch() {
     fi
 }
 
-export PS1="\[\e[32m\][\[\e[m\]\[\e[32m\]\u\[\e[m\]\[\e[32m\]@\[\e[m\]\[\e[32m\]\h\[\e[m\]\[\e[32m\]\[\e[m\] \[\e[32m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\`parse_git_branch\`\[\e[32m\]\\$\[\e[m\]\[\e[32m\] \[\e[m\]"
+GREEN="\[\e[32m\]"
+RESET="\[\e[m\]"
+export PS1="${GREEN}[\u@\h \w]${RESET}\`parse_git_branch\`${GREEN}\$${RESET} "
