@@ -1,9 +1,0 @@
-#
-# ~/.bash_profile
-#
-
-#[[ -f ~/.extend.bash_profile ]] && . ~/.extend.bash_profile
-[[ -f ~/.bashrc ]] && . ~/.bashrc
-if [[ ! $DISPLAY && $XDG_VTNR -le 2 ]]; then
-    exec startx; exit
-fi

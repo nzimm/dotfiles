@@ -22,6 +22,9 @@ exec --no-startup-id xset -b
 # Start enable transparency
 exec --no-startup-id xcompmgr -c -n -f -D 5
 
+# Start unclutter
+exec --no-startup-id unclutter --timeout 3 --fork --ignore-scrolling
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -40,7 +43,7 @@ bindsym $mod+Return exec lxterminal
 bindsym $alt+f exec firefox
 
 # lock screen
-bindsym $mod+Shift+p exec --no-startup-id /home/nizi2734/.i3/i3lock-fancy-multimonitor/lock --pixelate --no-text
+bindsym $mod+Shift+p exec --no-startup-id i3lock-fancy --pixelate --greyscale
 
 # kill focused window
 bindsym $mod+Shift+q kill
