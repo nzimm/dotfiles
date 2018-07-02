@@ -58,6 +58,16 @@ ${endif}
 # System Volume
 {"full_text": "Vol: ${exec amixer -c 0 get Master | awk -F"[][]" '/dB/ {print $2}'}", "color": "\#ffffff", "separator_block_width": 30}, \
 
+# Battery
+${if_match ${exec acpi -b | awk "{print $1}" | sed 's/[^:]*: \([^,]*\), \([0-9]*\)%.*/\2/'}<20}
+{"full_text": "${exec acpi -b | awk '{print $0}' | sed 's/[^:]*: \([^,]*\), \([0-9]*\)%.*/\1: \2%/'}", "color": "\#ff0000", "separator_block_width": 30}, \
+${else}
+${if_match ${exec acpi -b | awk "{print $1}" | sed 's/[^:]*: \([^,]*\), \([0-9]*\)%.*/\2/'}>80}
+{"full_text": "${exec acpi -b | awk "{print $1}" | sed 's/[^:]*: \([^,]*\), \([0-9]*\)%.*/\1: \2%/'}", "color": "\#00ff00", "separator_block_width": 30}, \
+${else}
+{"full_text": "${exec acpi -b | awk "{print $1}" | sed 's/[^:]*: \([^,]*\), \([0-9]*\)%.*/\1: \2%/'}", "color": "\#ffffff", "separator_block_width": 30}, \
+${endif}
+
 # Time & Date (look at strftime for formatting)
 {"full_text": "${time %a %D}", "color": "\#ffffff", "separator_block_width": 30}, \
 {"full_text": "${time %k:%M:%S}", "color": "\#ffffff", "separator_block_width": 30}\
