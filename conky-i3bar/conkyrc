@@ -55,6 +55,9 @@ ${else}
 {"full_text": "W: down", "color": "\#ff0000", "separator_block_width": 30},\
 ${endif}
 
+# System Volume
+{"full_text": "Vol: ${exec amixer -c 0 get Master | awk -F"[][]" '/dB/ {print $2}'}", "color": "\#ffffff", "separator_block_width": 30}, \
+
 # Time & Date (look at strftime for formatting)
 {"full_text": "${time %a %D}", "color": "\#ffffff", "separator_block_width": 30}, \
 {"full_text": "${time %k:%M:%S}", "color": "\#ffffff", "separator_block_width": 30}\
