@@ -50,7 +50,7 @@ ${else}
 ${endif}
 
 ${if_up eno1}
-{"full_text": "E: ${addr eno1}", "color": "\#00ff00", "separator_block_width": 30},\
+{"full_text": "E: ${addr eno1}", "color": ${if_match "${addr eno1}" == "No Address"}"\#ffff00"${else}"\#00ff00"${endif}, "separator_block_width": 30},\
 ${else}
 {"full_text": "W: down", "color": "\#ff0000", "separator_block_width": 30},\
 ${endif}
