@@ -1,0 +1,15 @@
+#!/bin/bash
+
+VPN_IFACE=$(nmcli con show | grep tun0 | cut -d ' ' -f1)
+
+if [[ "$VPN_IFACE" == "tun0" ]]; then
+    STATUS="ON"
+    COLOR="#00FF00"
+else
+    STATUS="OFF"
+    COLOR="#FF0000"
+fi
+
+echo $STATUS
+echo $STATUS
+echo $COLOR
