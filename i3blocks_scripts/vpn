@@ -1,9 +1,11 @@
 #!/bin/bash
 
+API=$(cat /usr/lib/i3blocks/ipstack.conf)
 VPN_IFACE=$(nmcli con show | grep tun0 | cut -d ' ' -f1)
+#PUBLIC=$(curl -s "ifconfig.me/ip")
 
 if [[ "$VPN_IFACE" == "tun0" ]]; then
-    STATUS="ON"
+    STATUS=$(curl -s "http://api.ipstack.com/check?access_key=${API}&fields=country_name&output=xml" | grep -oPm1 "(?<=<country_name>)[^<]+")
     COLOR="#00FF00"
 else
     STATUS="OFF"
