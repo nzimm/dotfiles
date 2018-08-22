@@ -10,6 +10,12 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 #########################################################
+# Look for bash-completion
+#########################################################
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
+
+#########################################################
 # Setup BASH prompt
 #########################################################
 function parse_git_branch() {
