@@ -9,6 +9,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Load pywal colorscheme
+(cat ~/.cache/wal/sequences &)
+
 #########################################################
 # Look for bash-completion
 #########################################################
@@ -28,10 +31,12 @@ function parse_git_branch() {
     fi
 }
 
-GREEN="\[$(tput setaf 2)\]"
+# These colors require xterm-256 colors
+# TODO we should have a test for 256 colors, and fail-back to standard colors
+GREEN="\[$(tput setaf 34)\]"
 BLUE="\[$(tput setaf 27)\]"
 PURPLE="\[$(tput setaf 57)\]"
-RED="\[$(tput setaf 1)\]"
+RED="\[$(tput setaf 196)\]"
 RESET="\[$(tput sgr0)\]"
 
 # User bash prompt
