@@ -2,9 +2,10 @@
 # ~/.bashrc
 #
 
-#########################################################
+# set env variables
+export TERM=xterm-256color
+
 # Import aliases
-#########################################################
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -12,15 +13,11 @@ fi
 # Load pywal colorscheme
 (cat ~/.cache/wal/sequences &)
 
-#########################################################
 # Look for bash-completion
-#########################################################
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
-#########################################################
 # Setup BASH prompt
-#########################################################
 function parse_git_branch() {
     BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
     if [ ! "${BRANCH}" == "" ]
