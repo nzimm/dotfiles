@@ -1,7 +1,7 @@
 # i3 config file
 set $mod Mod4
 set $alt Mod1
-set $terminal lxterminal
+set $terminal termite
 
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
@@ -50,7 +50,7 @@ floating_modifier $mod
 bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $mod+Return exec --no-startup-id exec $terminal
 bindsym $alt+f exec --no-startup-id firefox
-bindsym $mod+Control+w exec --no-startup-id $terminal --title="__nmtui" -e "nmtui-connect"
+bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
 
 # enable tranceparency
 exec --no-startup-id xcompmgr -c -n -f -D 5
@@ -212,7 +212,7 @@ for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
 
-for_window [title="__nmtui"] floating enable
+for_window [instance="__nmtui"] floating enable
 
 bar {
     status_command i3blocks

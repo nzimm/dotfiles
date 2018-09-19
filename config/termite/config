@@ -1,0 +1,17 @@
+[options]
+font = Hack Nerd Font Mono Regular 11
+browser = firefox
+clickable_url = true
+hyperlinks = true
+audible_bell = false
+dynamic_title = true
+geometry = 1000x600
+scrollback_lines = 999999
+mouse_autohide = true
+scrollbar = off
+scroll_on_keystroke = true
+scroll_on_output = true
+urgent_on_bell = true
+
+[colors]
+background = rgba(63, 63, 63, 0.85)
