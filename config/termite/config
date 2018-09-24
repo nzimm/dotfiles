@@ -1,5 +1,5 @@
 [options]
-font = Hack Nerd Font Mono Regular 11
+font = Hack Nerd Font Regular 11
 browser = firefox
 clickable_url = true
 hyperlinks = true
@@ -14,4 +14,4 @@ scroll_on_output = true
 urgent_on_bell = true
 
 [colors]
-background = rgba(63, 63, 63, 0.85)
+background = rgba(63, 63, 63, 0.9)
