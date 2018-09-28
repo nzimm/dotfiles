@@ -178,8 +178,8 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 set $Locker exec i3lock-fancy --no-text --pixelate --blur=2x2
 bindsym $mod+Shift+p $Locker
 
-# Suspend system and Lock Screen
-bindsym $mod+Shift+s $Locker && systemctl suspend
+# Suspend System
+bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
 
 
 # HDMI Display controls
@@ -209,7 +209,7 @@ bar {
     status_command i3blocks
     i3bar_command i3bar -t
     position bottom
-    font pango:Hack Nerd Font Regular 11
+    font pango:Hack Nerd Font Regular 12
     tray_padding 0
     height $height
     colors {
