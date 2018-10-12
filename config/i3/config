@@ -236,8 +236,6 @@ bar {
 exec --no-startup-id /home/umbra/.fehbg
 # Set colorscheme to match
 exec --no-startup-id /usr/bin/wal -R
-# Start xflux
-exec --no-startup-id /usr/bin/xflux -l -105
 
 exec --no-startup-id /usr/bin/compton -b
 exec --no-startup-id /usr/bin/unclutter --timeout 3 --fork --ignore-scrolling
