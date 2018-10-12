@@ -53,7 +53,7 @@ bindsym $alt+f exec --no-startup-id /usr/bin/firefox
 bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
 
 # kill focused window
-bindsym $mod+Shift+q /usr/bin/kill
+bindsym $mod+Shift+q kill
 
 # change focus
 bindsym $mod+h focus left
