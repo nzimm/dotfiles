@@ -15,14 +15,10 @@ Executed for login shells, sets up important environment variables
 Bash aliases have proven to be less universal than I had hoped, so maybe this
 file isn't worth the trouble of centralizing.
 
-## i3
-Config files for the window manager, i3-gaps.
+## config/
+This is where the files that live under ~/.config/ are stored.
 
-#### i3-gaps.config
-Lives at `~/.config/i3/config` and provides the core config for i3
-
-#### i3blocks-gaps.config
-Lives at `~/.config/i3blocks/config`
-Custom config file for the i3blocks status line. Custom scripts, even all
-relevant scripts, should live in this repo, and be installed to
-`/usr/lib/i3blocks/{script\_name}`
+## systemd/
+Custom systemd scripts/targets. These should be placed into the directory
+/etc/systemd/system/ followed by reloading systemd:
+  # systemctl daemon-reload
