@@ -20,5 +20,10 @@ This is where the files that live under ~/.config/ are stored.
 
 ## systemd/
 Custom systemd scripts/targets. These should be placed into the directory
-/etc/systemd/system/ followed by reloading systemd:
+/etc/systemd/system/ followed by enabling the service and reloading systemd:
+  # systemctl enable lock-on-suspend
   # systemctl daemon-reload
+
+## etc/
+Various other files that I want to have easy access to between various machines.
+
