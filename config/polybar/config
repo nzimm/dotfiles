@@ -1,3 +1,4 @@
+; vim:ft=dosini
 ;==========================================================
 ;
 ;
@@ -56,7 +57,7 @@ font-0 = Hack Nerd Font:style=Regular:pixelsize=11;1
 ;modules-left = bspwm i3
 modules-left = i3
 modules-center = 
-modules-right = alsa filesystem memory cpu wlan eth battery temperature date powermenu
+modules-right = alsa filesystem memory cpu wlan eth arch-updates battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -224,6 +225,18 @@ format-disconnected-foreground = #F21
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/arch-updates]
+type = custom/script
+exec = /home/nizi2734/.config/polybar/scripts/arch-updates.sh
+interval = 10
+
+format = <label>
+format-foreground = #3AD
+
+label =  %output%
+
+
 
 [module/date]
 type = internal/date
