@@ -1,7 +1,7 @@
 # i3 config file
 set $mod Mod4
 set $alt Mod1
-set $terminal termite
+set $terminal /usr/bin/termite
 
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
@@ -47,9 +47,9 @@ client.background       $black
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+d exec --no-startup-id dmenu_run
-bindsym $mod+Return exec --no-startup-id exec $terminal
-bindsym $alt+f exec --no-startup-id firefox
+bindsym $mod+d exec --no-startup-id /usr/bin/dmenu_run -fn "Hack-12"
+bindsym $mod+Return exec --no-startup-id $terminal
+bindsym $alt+f exec --no-startup-id /usr/bin/firefox
 bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
 
 # kill focused window
@@ -171,21 +171,21 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmu
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute && pkill -SIGRTMIN+10 i3blocks
 
 # Screen Brightness Controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 20
 
 # Lock Screen
-set $Locker exec i3lock-fancy --no-text --pixelate --blur=2x2
+set $Locker exec /usr/bin/i3lock-fancy --no-text --pixelate --blur=2x2
 bindsym $mod+Shift+p $Locker
 
 # Suspend system and Lock Screen
-bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
+bindsym $mod+Shift+s exec --no-startup-id /usr/bin/systemctl suspend
 
 
 # HDMI Display controls
 # TODO setup a better control for this
-bindsym $mod+w exec --no-startup-id xrandr --output HDMI1 --auto --scale-from 2560x1440
-bindsym $mod+Shift+w exec --no-startup-id xrandr --output HDMI1 --off
+bindsym $mod+w exec --no-startup-id /usr/bin/xrandr --output HDMI1 --auto --scale-from 2560x1440
+bindsym $mod+Shift+w exec --no-startup-id /usr/bin/xrandr --output HDMI1 --off
 
 # fix graphics glitches
 new_window none
@@ -233,10 +233,10 @@ bar {
 # Autostart
 
 # Set background
-exec --no-startup-id sh ~/.fehbg
+exec --no-startup-id /usr/bin/sh /home/nzimm/.fehbg
 # Set colorscheme to match
-exec --no-startup-id wal -R
+exec --no-startup-id /usr/bin/wal -R
 
-exec --no-startup-id compton -b
-exec --no-startup-id unclutter --timeout 3 --fork --ignore-scrolling
+exec --no-startup-id /usr/bin/compton -b
+exec --no-startup-id /usr/bin/unclutter --timeout 3 --fork --ignore-scrolling
 
