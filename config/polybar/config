@@ -18,11 +18,11 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
-background = #222
+background = ${xrdb:color0:#222}
+;background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+foreground = ${xrdb:color7:#222}
+;foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
@@ -30,6 +30,7 @@ alert = #bd2c40
 
 [bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
+bottom = false
 width = 100%
 height = 27
 ;offset-x = 1%
@@ -43,24 +44,25 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 4
+border-top-size = 4
+border-bottom-size = 0
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
-module-margin-left = 1
-module-margin-right = 2
+module-margin-left = 2
+module-margin-right = 1
 
-font-0 = Hack Nerd Font:style=Regular:pixelsize=11;1
+font-0 = Hack Nerd Font:style=Regular:pixelsize=14;1
 
 ;modules-left = bspwm i3
 modules-left = i3
 modules-center = 
-modules-right = alsa filesystem memory cpu wlan eth arch-updates battery temperature date powermenu
+modules-right = alsa filesystem memory cpu wlan eth vpn-up vpn-down arch-updates battery temperature date powermenu
 
 tray-position = right
-tray-padding = 2
+tray-padding = 0
 ;tray-transparent = true
 ;tray-background = #0063ff
 
@@ -111,7 +113,7 @@ ws-icon-5 = 6;6
 ws-icon-6 = 7;7
 ws-icon-7 = 8;8
 ws-icon-8 = 9;9
-ws-icon-9 = 0;0
+ws-icon-9 = 10;10
 ws-icon-default = ?
 
 ; focused = Active workspace on focused monitor
@@ -195,7 +197,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp3s0
+interface = wlp4s0
 interval = 3.0
 
 format-connected = 直 <label-connected>
@@ -211,7 +213,7 @@ format-disconnected-foreground = #F21
 
 [module/eth]
 type = internal/network
-interface = eno1
+interface = enp0s31f6
 interval = 3.0
 
 ;format-connected-underline = #55aa55
@@ -226,10 +228,32 @@ format-disconnected-foreground = #F21
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
+[module/vpn-up]
+type = custom/script
+exec = ~/.config/polybar/scripts/vpn-status.sh
+exec-if = pgrep openvpn
+interval = 10
+
+format = <label>
+format-foreground = #1F2
+
+label = %output%
+
+[module/vpn-down]
+type = custom/script
+exec = echo "  OFF"
+exec-if = ~/.config/polybar/scripts/vpn-status.sh
+interval = 10
+
+format = <label>
+format-foreground = #F21
+
+label = %output%
+
 [module/arch-updates]
 type = custom/script
-exec = /home/nizi2734/.config/polybar/scripts/arch-updates.sh
-interval = 10
+exec = ~/.config/polybar/scripts/arch-updates.sh
+interval = 300
 
 format = <label>
 format-foreground = #3AD
@@ -243,12 +267,12 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %Y-%m-%d"
+date-alt = "%a %D"
 
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
+format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #0a6cf5
 
@@ -330,7 +354,7 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
+animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 =  
 animation-charging-foreground = ${colors.foreground-alt}
@@ -338,7 +362,7 @@ animation-charging-framerate = 750
 
 animation-discharging-0 =  
 animation-discharging-1 = 
-animation-discharging-2 = 
+animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
@@ -398,8 +422,8 @@ screenchange-reload = true
 ;compositing-border = over
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini
 
