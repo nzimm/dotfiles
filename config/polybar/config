@@ -30,6 +30,9 @@ alert = #bd2c40
 
 [bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
+;monitor = eDP1
+;monitor-fallback = HDMI1
+;monitor-strict = false
 bottom = false
 width = 100%
 height = 27
@@ -98,7 +101,7 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
-pin-workspaces = true
+;pin-workspaces = true
 
 label-mode-padding = 2
 label-mode-foreground = #000
@@ -231,7 +234,7 @@ format-disconnected-foreground = #F21
 [module/vpn-up]
 type = custom/script
 exec = ~/.config/polybar/scripts/vpn-status.sh
-exec-if = pgrep openvpn
+exec-if = pgrep "openvpn|openconnect"
 interval = 10
 
 format = <label>
@@ -242,7 +245,7 @@ label = %output%
 [module/vpn-down]
 type = custom/script
 exec = echo "  OFF"
-exec-if = ~/.config/polybar/scripts/vpn-status.sh
+exec-if = ! pgrep "openvpn|openconnect"
 interval = 10
 
 format = <label>
@@ -338,10 +341,12 @@ type = internal/battery
 battery = BAT0
 adapter = AC
 full-at = 98
+time-format = %-H:%M
 
 format-charging = <animation-charging> <label-charging>
 ;format-charging-underline = #ffb52a
 
+label-discharging = %percentage% (%time%)
 format-discharging = <animation-discharging> <label-discharging>
 ;format-discharging-underline = ${self.format-charging-underline}
 
