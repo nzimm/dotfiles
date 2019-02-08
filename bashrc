@@ -2,7 +2,7 @@
 # ~/.bashrc
 #
 
-# set env variables
+# set environment variables
 export TERM=xterm-256color
 
 # Import aliases
@@ -13,11 +13,11 @@ fi
 # Load pywal colorscheme
 (cat ~/.cache/wal/sequences &)
 
-# Look for bash-completion
+# Source bash-completion
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
-# Setup BASH prompt
+# Identify git branch
 function parse_git_branch() {
     BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
     if [ ! "${BRANCH}" == "" ]
@@ -36,8 +36,16 @@ PURPLE="\[$(tput setaf 57)\]"
 RED="\[$(tput setaf 196)\]"
 RESET="\[$(tput sgr0)\]"
 
-# User bash prompt
-export PS1="${GREEN}[\u@\h \w]${RESET}\`parse_git_branch\`${GREEN}\$${RESET} "
+# Set prompt color based on user
+if [[ "$(whoami)" == "root" ]]; then
+    PS1="${GREEN}[${RED}\u${GREEN}@\h \w]${RESET}\`parse_git_branch\`${GREEN}\$${RESET} "
+else
+    PS1="${GREEN}[\u@\h \w]${RESET}\`parse_git_branch\`${GREEN}\$${RESET} "
+fi
 
-# Root prompt (color user RED)
-#export PS1="${GREEN}[${RED}\u${GREEN}@\h \w]${RESET}\`parse_git_branch\`${GREEN}\$${RESET} "
+# PROMPT_COMMAND runs before displaying prompt
+#   Save current working directory to volatile storage
+PROMPT_COMMAND='pwd > "${XDG_RUNTIME_DIR}/.cwd"'
+
+# New terminals cd into PWD, rather than at home dir
+[[ -f "${XDG_RUNTIME_DIR}/.cwd" ]] && cd "$(< ${XDG_RUNTIME_DIR}/.cwd)"
