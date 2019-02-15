@@ -205,7 +205,7 @@ interval = 3.0
 
 format-connected = 直 <label-connected>
 format-connected-foreground = #1F2
-label-connected = %local_ip% (%essid% %signal%%)
+label-connected = %{A1:termite --name="__sudo" -e "sudo ~/.config/polybar/scripts/wlan-toggle.sh":}%local_ip% (%essid% %signal%%)%{A}
 
 format-disconnected = 睊 down
 format-disconnected-foreground = #F21
@@ -261,7 +261,7 @@ interval = 300
 format = <label>
 format-foreground = #3AD
 
-label =  %output%
+label = %{A1:termite --name="__sudo" -e "sudo yay -Syu":} %output%%{A}
 
 
 
@@ -346,7 +346,7 @@ time-format = %-H:%M
 format-charging = <animation-charging> <label-charging>
 ;format-charging-underline = #ffb52a
 
-label-discharging = %percentage% (%time%)
+label-discharging = %percentage%% (%time%)
 format-discharging = <animation-discharging> <label-discharging>
 ;format-discharging-underline = ${self.format-charging-underline}
 
