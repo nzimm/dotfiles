@@ -35,7 +35,7 @@ force_display_urgency_hint 0 ms
 floating_minimum_size -1 x -1
 floating_maximum_size -1 x -1
 
-font pango:Hack 12
+font pango:Hack 14
 
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
 client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
@@ -47,7 +47,7 @@ client.background       $black
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+d exec --no-startup-id /usr/bin/dmenu_run -fn "Hack-12"
+bindsym $mod+d exec --no-startup-id /usr/bin/dmenu_run -fn "Hack-14"
 bindsym $mod+Return exec --no-startup-id $terminal
 bindsym $alt+f exec --no-startup-id /usr/bin/firefox
 bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
@@ -166,9 +166,9 @@ bindsym $mod+r mode "resize"
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle && pkill -SIGRTMIN+10 i3blocks
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute && pkill -SIGRTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute && pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute
 
 # Screen Brightness Controls
 bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
@@ -178,7 +178,7 @@ bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 20
 set $Locker exec /usr/bin/i3lock-fancy --no-text --pixelate --blur=2x2
 bindsym $mod+Shift+p $Locker
 
-# Suspend system and Lock Screen
+# Suspend system and lock screen
 bindsym $mod+Shift+s exec --no-startup-id /usr/bin/systemctl suspend
 
 
@@ -203,37 +203,23 @@ for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
 
+# Named instances
 for_window [instance="__nmtui"] floating enable
+for_window [instance="__sudo"] floating enable
 
-bar {
-    status_command i3blocks
-    i3bar_command i3bar -t
-    position bottom
-    font pango:Hack Nerd Font Regular 11
-    tray_padding 0
-    height $height
-    colors {
-#        statusline      $white
-#        background      $transparent
-#        separator       $transparent
-
-#                          BORDER       BACKGROUND   TEXT
-#        focused_workspace  $transparent $transparent $darkwhite
-#        inactive_workspace $transparent $transparent $white
-#        active_workspace   $transparent $transparent $white
-#        urgent_workspace   $darkred     $darkred     $transparent
-#        binding_mode       $darkred     $darkred     $transparent
-    }
-}
+###########
+# Autostart
+###########
 
 # Start polybar
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
-
-# Autostart
+# Start redshift
+exec --no-startup-id /usr/bin/redshift
 
 # Set background
-exec --no-startup-id /usr/bin/sh /home/nzimm/.fehbg
+exec --no-startup-id ~/.fehbg
+
 # Set colorscheme to match
 exec --no-startup-id /usr/bin/wal -R
 
