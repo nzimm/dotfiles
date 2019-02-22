@@ -86,7 +86,6 @@ inherit = bar/main
 font-0 = Hack Nerd Font:style=Regular:pixelsize=10;1
 monitor = DVI-D-0
 
-
 [module/filesystem]
 type = internal/fs
 interval = 25
