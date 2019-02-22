@@ -30,7 +30,6 @@ alert = #bd2c40
 
 [bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
-monitor = HDMI-0
 bottom = false
 width = 100%
 height = 27
@@ -83,8 +82,9 @@ cursor-scroll = ns-resize
 
 [bar/auxiliary]
 inherit = bar/main
-font-0 = Hack Nerd Font:style=Regular:pixelsize=10;1
-monitor = DVI-D-0
+monitor = eDP-1
+font-0 = Hack Nerd Font:style=Regular:pixelsize=12;1
+
 
 [module/filesystem]
 type = internal/fs
@@ -202,23 +202,24 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp4s0
+interface = wlp3s0
 interval = 3.0
 
-format-connected = 直 <label-connected>
+format-connected = <label-connected>
 format-connected-foreground = #1F2
-label-connected = %local_ip% (%essid% %signal%%)
+;label-connected = %local_ip% (%essid% %signal%%)
+label-connected = %{A1:termite --name="__sudo" -e "sudo bash -c 'ip link set wlp3s0 down'":}直 %local_ip% (%essid% %signal%%)%{A}
 
-format-disconnected = 睊 down
+format-disconnected = <label-disconnected>
 format-disconnected-foreground = #F21
-;format-disconnected = <label-disconnected>
+label-disconnected = %{A1:termite --name="__sudo" -e "sudo bash -c 'ip link set wlp3s0 up'":}睊 down%{A}
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = enp0s31f6
+interface = eno1
 interval = 3.0
 
 ;format-connected-underline = #55aa55
@@ -248,7 +249,6 @@ label = %output%
 type = custom/script
 exec = echo "  OFF"
 exec-if = ! pgrep "openvpn|openconnect"
-;exec-if = ~/.config/polybar/scripts/vpn-status.sh
 interval = 10
 
 format = <label>
@@ -265,7 +265,6 @@ format = <label>
 format-foreground = #3AD
 
 label = %{A1:termite --name="__sudo" -e "bash -c 'yay -Syu && read -n 1 -p \"Press any key to continue... \"'":} %output%%{A}
-
 
 
 
@@ -287,13 +286,18 @@ label = %date% %time%
 
 [module/spotify]
 type = custom/script
-exec = ~/.config/polybar/scripts/spotify-status.py --format "{artist} - {title}"
+; Very complicated one-liner:
+;   left click on the artist (left)   -> pevious
+;   left click on the hyphen (middle) -> pause-play
+;   left click on the title  (right)  -> next
+exec = ~/.config/polybar/scripts/spotify-status.py --format "%{A1:~/.config/polybar/scripts/spotify-status.py previous:}{artist}%{A}%{A1:~/.config/polybar/scripts/spotify-status.py play-pause:} - %{A}%{A1:~/.config/polybar/scripts/spotify-status.py next:}{:t15:{title}:}%{A}"
 tail = true
 label = 阮 %output%
-click-left = ~/.config/polybar/scripts/spotify-status.py play-pause
-click-middle = ~/.config/polybar/scripts/spotify-status.py play-pause
-click-right = ~/.config/polybar/scripts/spotify-status.py play-pause
+;click-left = ~/.config/polybar/scripts/spotify-status.py play-pause
+;click-middle = ~/.config/polybar/scripts/spotify-status.py play-pause
+;click-right = ~/.config/polybar/scripts/spotify-status.py play-pause
 format-underline = #1ed760
+
 
 [module/pulseaudio]
 type = internal/pulseaudio
