@@ -265,7 +265,8 @@ interval = 300
 format = <label>
 format-foreground = #3AD
 
-label = %{A1:termite --name="__sudo" -e "sudo yay -Syu":} %output%%{A}
+label = %{A1:termite --name="__sudo" -e "bash -c 'yay -Syu && read -n 1 -p \"Press any key to continue... \"'":} %output%%{A}
+
 
 
 
