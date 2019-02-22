@@ -166,9 +166,9 @@ bindsym $mod+r mode "resize"
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle && pkill -SIGRTMIN+10 i3blocks
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute && pkill -SIGRTMIN+10 i3blocks
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute && pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute
 
 # Screen Brightness Controls
 bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
@@ -204,15 +204,16 @@ for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
 
 for_window [instance="__nmtui"] floating enable
+for_window [instance="__sudo"] floating enable
 
-bar {
-    status_command i3blocks
-    i3bar_command i3bar -t
-    position bottom
-    font pango:Hack Nerd Font Regular 11
-    tray_padding 0
-    height $height
-    colors {
+#bar {
+#    status_command i3blocks
+#    i3bar_command i3bar -t
+#    position bottom
+#    font pango:Hack Nerd Font Regular 11
+#    tray_padding 0
+#    height $height
+#    colors {
 #        statusline      $white
 #        background      $transparent
 #        separator       $transparent
@@ -223,14 +224,18 @@ bar {
 #        active_workspace   $transparent $transparent $white
 #        urgent_workspace   $darkred     $darkred     $transparent
 #        binding_mode       $darkred     $darkred     $transparent
-    }
-}
+#    }
+#}
+
+###########
+# Autostart
+###########
 
 # Start polybar
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-
-# Autostart
+# Set ALSA Master volume to 0% and mute
+exec --no-startup-id amixer sset Master 0% mute
 
 # Set background
 exec --no-startup-id /usr/bin/sh /home/nzimm/.fehbg
