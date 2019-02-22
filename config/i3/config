@@ -214,6 +214,9 @@ for_window [instance="__sudo"] floating enable
 # Start polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
+# Set ALSA Master volume to 0% and mute
+exec --no-startup-id amixer -q sset Master 0% mute
+
 # Start redshift
 exec --no-startup-id /usr/bin/redshift
 
