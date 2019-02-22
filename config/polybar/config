@@ -30,9 +30,7 @@ alert = #bd2c40
 
 [bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
-;monitor = eDP1
-;monitor-fallback = HDMI1
-;monitor-strict = false
+monitor = HDMI-0
 bottom = false
 width = 100%
 height = 27
@@ -57,11 +55,11 @@ padding-right = 0
 module-margin-left = 2
 module-margin-right = 1
 
-font-0 = Hack Nerd Font:style=Regular:pixelsize=14;1
+font-0 = Hack Nerd Font:style=Regular:pixelsize=10;1
 
 ;modules-left = bspwm i3
 modules-left = i3
-modules-center = 
+modules-center = spotify
 modules-right = alsa filesystem memory cpu wlan eth vpn-up vpn-down arch-updates battery temperature date powermenu
 
 tray-position = right
@@ -83,6 +81,11 @@ tray-padding = 0
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[bar/auxiliary]
+inherit = bar/main
+font-0 = Hack Nerd Font:style=Regular:pixelsize=10;1
+monitor = DVI-D-0
+
 
 [module/filesystem]
 type = internal/fs
@@ -101,7 +104,7 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
-;pin-workspaces = true
+pin-workspaces = true
 
 label-mode-padding = 2
 label-mode-foreground = #000
@@ -205,7 +208,7 @@ interval = 3.0
 
 format-connected = 直 <label-connected>
 format-connected-foreground = #1F2
-label-connected = %{A1:termite --name="__sudo" -e "sudo ~/.config/polybar/scripts/wlan-toggle.sh":}%local_ip% (%essid% %signal%%)%{A}
+label-connected = %local_ip% (%essid% %signal%%)
 
 format-disconnected = 睊 down
 format-disconnected-foreground = #F21
@@ -246,6 +249,7 @@ label = %output%
 type = custom/script
 exec = echo "  OFF"
 exec-if = ! pgrep "openvpn|openconnect"
+;exec-if = ~/.config/polybar/scripts/vpn-status.sh
 interval = 10
 
 format = <label>
@@ -280,6 +284,16 @@ format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #0a6cf5
 
 label = %date% %time%
+
+[module/spotify]
+type = custom/script
+exec = ~/.config/polybar/scripts/spotify-status.py --format "{artist} - {title}"
+tail = true
+label = 阮 %output%
+click-left = ~/.config/polybar/scripts/spotify-status.py play-pause
+click-middle = ~/.config/polybar/scripts/spotify-status.py play-pause
+click-right = ~/.config/polybar/scripts/spotify-status.py play-pause
+format-underline = #1ed760
 
 [module/pulseaudio]
 type = internal/pulseaudio
@@ -341,12 +355,10 @@ type = internal/battery
 battery = BAT0
 adapter = AC
 full-at = 98
-time-format = %-H:%M
 
 format-charging = <animation-charging> <label-charging>
 ;format-charging-underline = #ffb52a
 
-label-discharging = %percentage%% (%time%)
 format-discharging = <animation-discharging> <label-discharging>
 ;format-discharging-underline = ${self.format-charging-underline}
 
@@ -360,21 +372,16 @@ ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
 animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
-animation-charging-3 = 
-animation-charging-4 = 
-animation-charging-framerate = 750
+animation-charging-1 = 
+animation-charging-2 =  
 animation-charging-foreground = ${colors.foreground-alt}
+animation-charging-framerate = 750
 
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-3 = 
-animation-discharging-4 = 
-animation-discharging-framerate = 500
+animation-discharging-0 =  
+animation-discharging-1 = 
+animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
+animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
