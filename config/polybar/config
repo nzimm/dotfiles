@@ -208,11 +208,11 @@ interval = 3.0
 format-connected = <label-connected>
 format-connected-foreground = #1F2
 ;label-connected = %local_ip% (%essid% %signal%%)
-label-connected = %{A1:termite --name="__sudo" -e "sudo bash -c 'ip link set wlp3s0 down'":}直 %local_ip% (%essid% %signal%%)%{A}
+label-connected = %{A1:termite --name="__sudo" -e "sudo bash -c 'ip link set wlp3s0 down'" &:}直 %local_ip% (%essid% %signal%%)%{A}
 
 format-disconnected = <label-disconnected>
 format-disconnected-foreground = #F21
-label-disconnected = %{A1:termite --name="__sudo" -e "sudo bash -c 'ip link set wlp3s0 up'":}睊 down%{A}
+label-disconnected = %{A1:termite --name="__sudo" -e "sudo bash -c 'ip link set wlp3s0 up'" &:}睊 down%{A}
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
@@ -264,7 +264,7 @@ interval = 300
 format = <label>
 format-foreground = #3AD
 
-label = %{A1:termite --name="__sudo" -e "bash -c 'yay -Syu && read -n 1 -p \"Press any key to continue... \"'":} %output%%{A}
+label = %{A1:termite --name="__sudo" -e "bash -c 'yay -Syu && read -n 1 -p \"Press any key to continue... \"'" &:} %output%%{A}
 
 
 
