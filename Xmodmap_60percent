@@ -3,5 +3,14 @@ keysym h = h H Left
 keysym j = j J Down
 keysym k = k K Up
 keysym l = l L Right
+
 keysym u = u U Prior
 keysym o = o O Next
+
+keysym q = q Q XF86AudioPrev
+keysym w = w W XF86AudioPlay
+keysym e = e E XF86AudioNext
+
+keysym s = s S XF86AudioLowerVolume
+keysym d = d D XF86AudioRaiseVolume
+keysym f = f F XF86AudioMute
