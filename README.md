@@ -6,14 +6,19 @@ My shell of choice. These files should be sufficient to setup a familiar bash
 environment on any Linux host.
 
 #### bashrc
-Sources `bash\_aliases`, and sets up my bash prompt -- complete with git branch!
+Sources `bash_aliases`, and sets up my bash prompt -- complete with git branch!
 
-#### bash\_profile
+#### bash_profile
 Executed for login shells, sets up important environment variables
 
-#### bash\_aliases
+#### bash_aliases
 Bash aliases have proven to be less universal than I had hoped, so maybe this
 file isn't worth the trouble of centralizing.
+
+#### Xmodmap
+I use a 60% keyboard on desktops, but it seems a little redundant on a laptop.
+Luckily, I can mirror certain keymappings that I've grown accustomed to with
+xmodmap.
 
 ## config/
 This is where the files that live under ~/.config/ are stored.
