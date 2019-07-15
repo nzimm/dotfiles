@@ -243,7 +243,8 @@ interval = 10
 format = <label>
 format-foreground = #1F2
 
-label = %output%
+; Click to turn VPN off
+label = %{A1:termite --name="__floating" -e "bash -c '/usr/bin/nordvpn disconnect && read -n 1 -p \"Press any key to continue...\"'"&:}%output%%{A}
 
 [module/vpn-down]
 type = custom/script
@@ -254,7 +255,8 @@ interval = 10
 format = <label>
 format-foreground = #F21
 
-label = %output%
+; Click to connect to recommended server
+label = %{A1:termite --name="__floating" -e "bash -c '/usr/bin/nordvpn connect && read -n 1 -p \"Press any key to continue...\"'"&:}%output%%{A}
 
 [module/arch-updates]
 type = custom/script
@@ -278,11 +280,11 @@ date-alt = "%a %D"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
+format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #0a6cf5
 
-label = %date% %time%
+label = %{A1:termite --name="__floating" -e "bash -c 'cal -y && read -n 1 -p \"Press any key to continue... \"'" &:}%date%%{A} %time%
 
 [module/spotify]
 type = custom/script
@@ -377,11 +379,11 @@ ramp-capacity-foreground = ${colors.foreground-alt}
 
 animation-charging-0 = 
 animation-charging-1 = 
-animation-charging-2 =  
+animation-charging-2 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
-animation-discharging-0 =  
+animation-discharging-0 = 
 animation-discharging-1 = 
 animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
