@@ -3,24 +3,31 @@
 # Dependencies
 #    curl
 #    geoip
-# NOTE: The reason I broke the UNIX "exit(0) == good" principle is because I 
-#       use this script to (a) display the country of my exit VPN, and (b) to
-#       exit(0) when the vpn is off. Therefore, exit(1) means VPN is running.
 
 if [[ $(pgrep "openvpn|openconnect") ]]; then
 
-    # Check for connectivity
-    ping 8.8.8.8 -c 1 > /dev/null
+    # Check for connectivity and DNS
+    #   NOTE: I use curl vs ping, because some VPN servers were dropping ICMP
+    #   packets
+    timeout 3 curl -s "ifconfig.me/ip" > /dev/null
 
     if [ "$?" -eq "0" ]; then
         STATUS=" $(geoiplookup $(curl -s "ifconfig.me/ip") | cut -f 2 -d ',')"
-        echo $STATUS
-        exit 0
+
+        if [ "$STATUS" == " GeoIP Country Edition: IP Address not found" ]; then
+            echo " Couldn't resolve IP"
+            exit 1
+        else
+            echo $STATUS
+        fi
     else
-        echo " No Connectivity!"
+        echo " IP request timeout"
+        exit 1
     fi
+
 else
     STATUS="  OFF"
     echo $STATUS
-    exit 0
 fi
+
+exit 0
