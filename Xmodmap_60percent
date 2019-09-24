@@ -6,6 +6,9 @@ keysym l = l L Right
 
 keysym u = u U Prior
 keysym o = o O Next
+keysym y = y Y Home
+keysym n = n N End
+keysym BackSpace = BackSpace BackSpace Delete
 
 keysym q = q Q XF86AudioPrev
 keysym w = w W XF86AudioPlay
