@@ -236,7 +236,7 @@ format-disconnected-foreground = #F21
 
 [module/vpn-up]
 type = custom/script
-exec = ~/.config/polybar/scripts/vpn-status.sh
+exec = ~/.config/polybar/scripts/vpn-status.py
 exec-if = pgrep "openvpn|openconnect"
 interval = 10
 
@@ -248,7 +248,7 @@ label = %{A1:termite --name="__floating" -e "bash -c '/usr/bin/nordvpn disconnec
 
 [module/vpn-down]
 type = custom/script
-exec = echo "  OFF"
+exec = ~/.config/polybar/scripts/vpn-status.py
 exec-if = ! pgrep "openvpn|openconnect"
 interval = 10
 
