@@ -16,9 +16,10 @@ def get_ip():
     '''return IP address from ifconfig.me'''
     try:
         res = requests.get("https://ifconfig.me/ip", timeout=1)
-        return res.text
     except:
-        return " Couldn't resolve IP"
+        print(" Couldn't resolve IP")
+        sys.exit(1)
+    return res.text
 
 
 def get_geodata(ip):
@@ -29,11 +30,12 @@ def get_geodata(ip):
                'Referer':'https://www.whatsmyip.org/ip-geo-location/?ip=%s' % ip
     }
     try:
-        resp = requests.post(url, data=payload, headers=headers, timeout=4)
+        res = requests.post(url, data=payload, headers=headers, timeout=4)
     except:
-        return " geoip timeout"
+        print(" geoip timeout")
+        sys.exit()
+    return res.text
 
-    return resp.text
 
 
 def format_output(res_string):
