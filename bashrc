@@ -5,13 +5,18 @@
 # set environment variables
 export TERM=xterm-256color
 
+# set xsecurelock env
+export XSECURELOCK_AUTH_TIMEOUT=10
+export XSECURELOCK_BLANK_TIMEOUT=10
+export XSECURELOCK_BURNIN_MITIGATION=350
+
 # Import aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
 # Load pywal colorscheme
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 
 # Source bash-completion
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
