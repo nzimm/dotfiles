@@ -21,6 +21,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# add go bin to path
+[ -d ~/go/bin/ ] && export PATH=$PATH:~/go/bin/
+
 # load pywal colorscheme
 #(cat ~/.cache/wal/sequences &)
 
