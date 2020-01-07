@@ -29,7 +29,8 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/main]
-;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:eDP1}
+#monitor = eDP1
 bottom = false
 width = 100%
 height = 27
@@ -49,21 +50,21 @@ border-bottom-size = 0
 border-color = #00000000
 
 padding-left = 0
-padding-right = 0
+padding-right = 1
 
 module-margin-left = 2
 module-margin-right = 1
 
-font-0 = Hack Nerd Font:style=Regular:pixelsize=10;1
+font-0 = Hack Nerd Font:style=Regular:pixelsize=14;1
 
 ;modules-left = bspwm i3
 modules-left = i3
 modules-center = spotify
-modules-right = alsa filesystem memory cpu wlan eth vpn-up vpn-down arch-updates battery temperature date powermenu
+modules-right = alsa filesystem memory cpu wlan eth vpn-up vpn-down arch-updates battery date
 
 tray-position = right
 tray-padding = 0
-;tray-transparent = true
+tray-transparent = true
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
@@ -103,6 +104,7 @@ index-sort = true
 wrapping-scroll = false
 
 ; Only show workspaces on the same output as the bar
+; NOTE if this is set to true, i3 module will have issues when cloning monitor
 pin-workspaces = true
 
 label-mode-padding = 2
@@ -123,8 +125,8 @@ ws-icon-default = ?
 
 ; focused = Active workspace on focused monitor
 label-focused = %icon%
-label-focused-background = ${module/bspwm.label-focused-background}
-;label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.foreground}
 label-focused-padding = 1
 ;label-focused-padding = ${module/bspwm.label-focused-padding}
 
@@ -292,7 +294,7 @@ type = custom/script
 ;   left click on the artist (left)   -> pevious
 ;   left click on the hyphen (middle) -> pause-play
 ;   left click on the title  (right)  -> next
-exec = ~/.config/polybar/scripts/spotify-status.py --format "%{A1:~/.config/polybar/scripts/spotify-status.py previous:}{artist}%{A}%{A1:~/.config/polybar/scripts/spotify-status.py play-pause:} - %{A}%{A1:~/.config/polybar/scripts/spotify-status.py next:}{:t15:{title}:}%{A}"
+exec = ~/.config/polybar/scripts/spotify-status.py --format "%{A1:~/.config/polybar/scripts/spotify-status.py previous:}{artist}%{A}%{A1:~/.config/polybar/scripts/spotify-status.py play-pause:} - %{A}%{A1:~/.config/polybar/scripts/spotify-status.py next:}{:t20:{title}:}%{A}"
 tail = true
 label = 阮 %output%
 ;click-left = ~/.config/polybar/scripts/spotify-status.py play-pause
@@ -388,54 +390,6 @@ animation-discharging-1 = 
 animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-;format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true

@@ -1,7 +1,7 @@
 [options]
-font = Hack Nerd Font Regular 11
+font = Hack Nerd Font Regular 16
 browser = firefox
-clickable_url = true
+clickable_url = false
 hyperlinks = true
 audible_bell = false
 dynamic_title = true
@@ -14,4 +14,42 @@ scroll_on_output = true
 urgent_on_bell = true
 
 [colors]
-background = rgba(63, 63, 63, 0.9)
+
+# special
+foreground      = #919191
+foreground_bold = #919191
+cursor          = #919191
+#background = rgba(0, 0, 0, 0.8)
+background = rgba(0, 0, 0, 0.85)
+
+# black
+color0  = #303030
+color8  = #5e5e5e
+
+# red
+color1  = #a13a38
+color9  = #ffa59a
+
+# green
+color2  = #00715d
+color10 = #24dfc4
+
+# yellow
+color3  = #006f32
+color11 = #73db95
+
+# blue
+color4  = #a43261
+color12 = #ff9fc9
+
+# magenta
+color5  = #913e88
+color13 = #ffa7f6
+
+# cyan
+color6  = #007086
+color14 = #00ddf4
+
+# white
+color7  = #c6c6c6
+color15 = #ffffff
