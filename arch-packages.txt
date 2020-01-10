@@ -17,6 +17,7 @@ polybar             # customizable status bar
 python-pywal        # lazy custom colorschemes
 redshift            # filter monitor bluelight
 termite             # simple VTE terminal
+tree
 ttf-nerd-fonts-hack-complete-git
 unclutter           # small program to hide mouse cursor
 vim
