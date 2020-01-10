@@ -16,6 +16,9 @@ export XSECURELOCK_BURNIN_MITIGATION=350
 # enable less to view non-text files (pdf, directories, compressed, etc.)
 [ -x /usr/bin/lesspipe.sh ] && eval "$(SHELL=/bin/sh lesspipe.sh)"
 
+# source conda
+[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+
 # import aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -41,6 +44,12 @@ function echo_branch() {
         echo "${BRANCH}"
     else
         echo ""
+    fi
+}
+
+function echo_conda_env() {
+    if [ ! "${CONDA_PREFIX}" == "" ]; then
+        echo "($(basename $CONDA_PREFIX)) "
     fi
 }
 
@@ -72,7 +81,10 @@ B_WHITE='\001\033[01;37m\002'
 #fi
 
 # fancy prompt w/ color (Parrot OS template)
-PS1="${LIGHTGRAY}\342\224\214\342\224\200[${GREEN}$(if [[ ${EUID} == 0 ]]; then echo 'root@\h'; else echo '\u@\h'; fi)${LIGHTGRAY}]\342\224\200[${GREEN}\w${LIGHTGRAY}]\$([ \$(echo_branch) ] && echo \"\342\224\200[${WHITE}\$(echo_branch)${LIGHTGRAY}]\")\n\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]${RESET}\$ "
+# NOTE: command expansion must be escaped, e.g. `\$()` rather than `$()`, so
+#       that the command runs each time the prompt prints. Otherwise, commands
+#       will only execute when this file is sourced.
+PS1="${LIGHTGRAY}\342\224\214\342\224\200[${GREEN}$(if [[ ${EUID} == 0 ]]; then echo 'root@\h'; else echo '\u@\h'; fi)${LIGHTGRAY}]\342\224\200[${GREEN}\w${LIGHTGRAY}]\$([ \$(echo_branch) ] && echo \"\342\224\200[${WHITE}\$(echo_branch)${LIGHTGRAY}]\")\n\342\224\224\342\224\200\342\224\200\342\225\274\[\033[0m\]${RESET} \$(echo_conda_env)\$ "
 
 # PROMPT_COMMAND runs before displaying prompt
 #   Save current working directory to volatile storage
