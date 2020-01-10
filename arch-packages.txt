@@ -1,0 +1,23 @@
+# Arch package list
+# install with `yay -Ss $(awk 'NR>2 {printf "%s ",$1}' arch-packages.txt)`
+arandr              # Simple visual front end for xrandr
+bash_completion
+base-devel          # core set of Unix binaries
+feh                 # lightweight image viewer
+firefox
+git
+i3-gaps
+lesspipe            # input filter for less
+maim                # screenshot utility
+nerd-fonts-hack
+networkmanager
+pavucontrol         # PulseAudio frontend, nice to help route audio over HDMI
+picom               # compositor for X
+polybar             # customizable status bar
+python-pywal        # lazy custom colorschemes
+redshift            # filter monitor bluelight
+termite             # simple VTE terminal
+ttf-nerd-fonts-hack-complete-git
+unclutter           # small program to hide mouse cursor
+vim
+xsecurelock         # simple screen lock
