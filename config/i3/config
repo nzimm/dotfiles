@@ -182,7 +182,7 @@ bindsym $mod+Shift+p $Locker
 bindsym $mod+Shift+s exec --no-startup-id /usr/bin/systemctl suspend
 
 # Screenshot w/ maim
-bindsym $mod+Shift+t exec --no-startup-id /usr/bin/maim -su ~/screenshot-$(date +%m-%d-%Y-%k-%M-%S).png
+bindsym $mod+Shift+t exec --no-startup-id /usr/bin/maim -su ~/screenshot-$(date +%m-%d-%Y-%H-%M-%S).png
 
 
 # HDMI Display controls
