@@ -11,6 +11,7 @@ lesspipe            # input filter for less
 maim                # screenshot utility
 nerd-fonts-hack
 networkmanager
+patch               # utility to apply patch files
 pavucontrol         # PulseAudio frontend, nice to help route audio over HDMI
 picom               # compositor for X
 polybar             # customizable status bar

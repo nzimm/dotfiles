@@ -17,7 +17,7 @@ export XSECURELOCK_BURNIN_MITIGATION=350
 [ -x /usr/bin/lesspipe.sh ] && eval "$(SHELL=/bin/sh lesspipe.sh)"
 
 # source conda
-[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
+#[ -f /opt/miniconda3/etc/profile.d/conda.sh ] && source /opt/miniconda3/etc/profile.d/conda.sh
 
 # import aliases
 if [ -f ~/.bash_aliases ]; then
@@ -38,7 +38,7 @@ elif [ -f /etc/bash_completion ]; then
 fi
 
 function echo_branch() {
-    BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+    BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' | tr -d '()'`
     if [ ! "${BRANCH}" == "" ]
     then
         echo "${BRANCH}"
@@ -84,11 +84,11 @@ B_WHITE='\001\033[01;37m\002'
 # NOTE: command expansion must be escaped, e.g. `\$()` rather than `$()`, so
 #       that the command runs each time the prompt prints. Otherwise, commands
 #       will only execute when this file is sourced.
-PS1="${LIGHTGRAY}\342\224\214\342\224\200[${GREEN}$(if [[ ${EUID} == 0 ]]; then echo 'root@\h'; else echo '\u@\h'; fi)${LIGHTGRAY}]\342\224\200[${GREEN}\w${LIGHTGRAY}]\$([ \$(echo_branch) ] && echo \"\342\224\200[${WHITE}\$(echo_branch)${LIGHTGRAY}]\")\n\342\224\224\342\224\200\342\224\200\342\225\274\[\033[0m\]${RESET} \$(echo_conda_env)\$ "
+PS1="${LIGHTGRAY}\342\224\214\342\224\200[${GREEN}$(if [[ ${EUID} == 0 ]]; then echo 'root@\h'; else echo '\u@\h'; fi)${LIGHTGRAY}]\342\224\200[${GREEN}\w${LIGHTGRAY}]\$([ echo_branch ] && echo \"\342\224\200[${WHITE}\$(echo_branch)${LIGHTGRAY}]\")\n\342\224\224\342\224\200\342\224\200\342\225\274\[\033[0m\]${RESET} \$(echo_conda_env)\$ "
 
 # PROMPT_COMMAND runs before displaying prompt
 #   Save current working directory to volatile storage
-PROMPT_COMMAND='pwd > "${XDG_RUNTIME_DIR}/.cwd"'
+PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 
 # New terminals cd into PWD, rather than at home dir
-[[ -f "${XDG_RUNTIME_DIR}/.cwd" ]] && cd "$(< ${XDG_RUNTIME_DIR}/.cwd)"
+[[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
