@@ -12,6 +12,7 @@ lesspipe            # input filter for less
 man-db
 man-pages
 maim                # screenshot utility
+ncdu                # ncurses frontend for disk usage
 nerd-fonts-hack
 networkmanager
 patch               # utility to apply patch files
@@ -20,6 +21,7 @@ picom               # compositor for X
 polybar             # customizable status bar
 python-pywal        # lazy custom colorschemes
 redshift            # filter monitor bluelight
+rsync
 termite             # simple VTE terminal
 tmux
 tree
