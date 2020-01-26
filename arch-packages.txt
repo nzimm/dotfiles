@@ -3,11 +3,14 @@
 arandr              # Simple visual front end for xrandr
 bash_completion
 base-devel          # core set of Unix binaries
+bind-tools
 feh                 # lightweight image viewer
 firefox
 git
 i3-gaps
 lesspipe            # input filter for less
+man-db
+man-pages
 maim                # screenshot utility
 nerd-fonts-hack
 networkmanager
@@ -18,6 +21,7 @@ polybar             # customizable status bar
 python-pywal        # lazy custom colorschemes
 redshift            # filter monitor bluelight
 termite             # simple VTE terminal
+tmux
 tree
 ttf-nerd-fonts-hack-complete-git
 unclutter           # small program to hide mouse cursor
