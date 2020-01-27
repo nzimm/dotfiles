@@ -175,7 +175,7 @@ bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
 bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 20
 
 # Lock Screen
-set $Locker exec /usr/bin/i3lock-fancy --no-text --pixelate --blur=2x2
+set $Locker exec /usr/bin/xsecurelock
 bindsym $mod+Shift+p $Locker
 
 # Suspend system and lock screen
