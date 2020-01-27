@@ -12,7 +12,7 @@ lesspipe            # input filter for less
 man-db
 man-pages
 maim                # screenshot utility
-ncvu                # ncurses frontend for disk usage
+ncdu                # ncurses frontend for disk usage
 nerd-fonts-hack
 networkmanager
 patch               # utility to apply patch files
