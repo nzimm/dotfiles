@@ -47,7 +47,7 @@ client.background       $black
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+d exec --no-startup-id /usr/bin/dmenu_run -fn "Hack-14"
+bindsym $mod+d exec --no-startup-id /usr/bin/dmenu_run -fn "Hack-12"
 bindsym $mod+Return exec --no-startup-id $terminal
 bindsym $alt+f exec --no-startup-id /usr/bin/firefox
 bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
@@ -174,12 +174,16 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmu
 bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
 bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 20
 
-# Lock Screen
-set $Locker exec /usr/bin/xsecurelock
-bindsym $mod+Shift+p $Locker
+# Autolock after inactivity
+exec --no-startup-id xset s 300 5
+exec --no-startup-id xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
 
-# Suspend system and lock screen
-bindsym $mod+Shift+s exec --no-startup-id /usr/bin/systemctl suspend
+# Trigger lock w/ xset, rather than xsecurelock directly
+bindsym $mod+Shift+p exec xset s activate
+
+# Suspend System
+bindsym $mod+Shift+s exec --no-startup-id systemctl suspend
+
 
 # Screenshot w/ maim
 bindsym $mod+Shift+t exec --no-startup-id /usr/bin/maim -su ~/screenshot-$(date +%m-%d-%Y-%H-%M-%S).png
