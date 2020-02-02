@@ -84,7 +84,7 @@ B_WHITE='\001\033[01;37m\002'
 # NOTE: command expansion must be escaped, e.g. `\$()` rather than `$()`, so
 #       that the command runs each time the prompt prints. Otherwise, commands
 #       will only execute when this file is sourced.
-PS1="${LIGHTGRAY}\[\342\224\214\342\224\200\][${GREEN}$(if [[ ${EUID} == 0 ]]; then echo 'root@\h'; else echo '\u@\h'; fi)${LIGHTGRAY}]\[\342\224\200\][${GREEN}\w${LIGHTGRAY}]\$([ \$(echo_branch) ] && echo \[\"\342\224\200\][${WHITE}\$(echo_branch)${LIGHTGRAY}]\")\n\[\342\224\224\342\224\200\342\224\200\342\225\274\]\[\033[0m\]${RESET} \$(echo_conda_env)\$ "
+PS1="${LIGHTGRAY}\342\224\214\342\224\200[${GREEN}$(if [[ ${EUID} == 0 ]]; then echo'root@\h'; else echo '\u@\h'; fi)${LIGHTGRAY}]\342\224\200[${GREEN}\w${LIGHTGRAY}]\$([ \$(echo_branch) ] && echo \"\[\342\224\200\][${WHITE}\$(echo_branch)${LIGHTGRAY}]\")\n\342\224\224\342\224\200\342\224\200\342\225\274\033[0m${RESET} \$ "
 
 
 # PROMPT_COMMAND runs before displaying prompt

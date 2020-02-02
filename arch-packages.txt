@@ -30,3 +30,4 @@ ttf-nerd-fonts-hack-complete-git
 unclutter           # small program to hide mouse cursor
 vim
 xsecurelock         # simple screen lock
+xss-lock
