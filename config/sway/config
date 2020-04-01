@@ -13,7 +13,9 @@ output eDP-1 {
 # NOTE: xkb files are much more complex than xmodmap configs - to generate this,
 # I used `xkbcomp $DISPLAY xkb.dump` after loading my xmodmap config in an i3
 # (Xorg) session
-input type:keyboard xkb_file ~/.config/xkb/keymap
+input type:keyboard {
+     xkb_layout sixty-perc
+}
 
 # Custom black colors
 set $black       #282828
@@ -41,7 +43,7 @@ default_border none
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+d exec --no-startup-id /usr/bin/dmenu_run -fn "Hack-14"
+bindsym $mod+d exec /usr/bin/bemenu-run --no-overlap --fn "Hack-14"
 bindsym $mod+Return exec --no-startup-id $terminal
 bindsym $alt+f exec --no-startup-id /usr/bin/firefox
 bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
@@ -197,9 +199,9 @@ for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
 
 # Named instances
-for_window [title="__nmtui"] floating enable
-for_window [instance="__sudo"] floating enable
-for_window [instance="__floating"] floating enable
+for_window [app_id="__nmtui"] floating enable
+for_window [app_id="__sudo"] floating enable
+for_window [app_id="__floating"] floating enable
 
 ###########
 # Autostart
