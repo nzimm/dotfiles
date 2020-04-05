@@ -1,106 +1,133 @@
 # sway config file
+
+### Variables and global configs
+#
+# 'Windows' key as $mod, left alt as $alt
 set $mod Mod4
 set $alt Mod1
+# set default terminal
 set $terminal /usr/bin/termite
+# set default launcher
+# NOTE: for dmenu, pipe command to swaymsg so resulting window can be opened
+# on original workspace
+set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu exec /usr/bin/bemenu-run --no-overlap --fn "Hack-14"
+# font
+font pango:Hack 14
+# custom black colors
+set $black       #282828
+set $darkblack   #1d2021
+set $transparent #00000000
+# set gap size
+gaps inner 10
+gaps outer 0
+# disable window borders
+default_border none
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+# i3 config options
+workspace_auto_back_and_forth yes
+floating_minimum_size 1200 x 800
+floating_maximum_size -1 x -1
 
-# Laptop output
+
+### Output config
+#
+# set wallpaper
+output * bg ~/Pictures/Backgrounds/simple_circuit.png fill
+# laptop main output - TODO set up multi-monitor support for hdmi
 output eDP-1 {
     resolution 2560x1440
     scale 1
 }
+# lock screen
+set $Locker exec swaylock -f -c 000000
+# idle config - lock screen after 300 seconds, turn off displays after 600, and
+# guarantees screen locks before sleep
+exec swayidle -w \
+    timeout 300 '$Locker' \
+    timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep '$Locker'
 
+
+### Input config
+#
 # Custom keymap
-# NOTE: xkb files are much more complex than xmodmap configs - to generate this,
-# I used `xkbcomp $DISPLAY xkb.dump` after loading my xmodmap config in an i3
-# (Xorg) session
+# NOTE: xkb files are much more complex than xmodmap configs - I started by
+# generating a dump with `xkbcomp $DISPLAY xkb.dump` after loading my xmodmap
+# config in an i3 (Xorg) session. This was flawed, but I found this github issue
+# helpful: https://github.com/swaywm/sway/issues/4250. xkb symbols live in
+# `~/.xkb/symbols/`
 input type:keyboard {
      xkb_layout sixty-perc
 }
 
-# Custom black colors
-set $black       #282828
-set $darkblack   #1d2021
-set $transparent #00000000
-
-set $height 30
-
-set $default_gaps_inner 10
-set $default_gaps_outer 0
-gaps inner $default_gaps_inner
-gaps outer $default_gaps_outer
-
-workspace_auto_back_and_forth yes
-force_display_urgency_hint 0 ms
-
-floating_minimum_size -1 x -1
-floating_maximum_size -1 x -1
-
-font pango:Hack 14
-
-# Disable window borders
-default_border none
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-bindsym $mod+d exec /usr/bin/bemenu-run --no-overlap --fn "Hack-14"
+### Key bindings
+# lock screen
+bindsym $mod+Shift+p $Locker
+# suspend and lock screen
+bindsym $mod+Shift+s exec --no-startup-id /usr/bin/systemctl suspend
+# start menu
+bindsym $mod+d exec $menu
+# launch programs
 bindsym $mod+Return exec --no-startup-id $terminal
 bindsym $alt+f exec --no-startup-id /usr/bin/firefox
 bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
+# Screenshot w/ maim
+bindsym $mod+Shift+t exec grim -g "$(slurp)" ~/screenshot-$(date +%m-%d-%Y-%H-%M-%S).png
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# exit sway (logs you out of your X session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will kill your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit
+# Media Keys for XF86 inputs TODO
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute
+# Screen Brightness Controls TODO
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 20
 
+
+### Windows and workspaces
+#
 # kill focused window
 bindsym $mod+Shift+q kill
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+h move left 35px
 bindsym $mod+Shift+j move down 35px
 bindsym $mod+Shift+k move up 35px
 bindsym $mod+Shift+l move right 35px
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left 35px
 bindsym $mod+Shift+Down move down 35px
 bindsym $mod+Shift+Up move up 35px
 bindsym $mod+Shift+Right move right 35px
-
 # split in horizontal orientation
 bindsym $mod+semicolon split h
-
 # split in vertical orientation
 bindsym $mod+v split v
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
+# toggle split
 bindsym $mod+e layout toggle split
-
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
-
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-#bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
 # switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
@@ -112,7 +139,6 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
-
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
@@ -124,12 +150,6 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -153,78 +173,31 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
-
-# Media Keys for XF86 inputs
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
-bindsym XF86AudioNext exec --no-startup-id playerctl next
-bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute
-
-# Screen Brightness Controls
-bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 20
-
-# Lock Screen
-set $Locker exec swaylock -f -c 000000
-bindsym $mod+Shift+p $Locker
-
-# Suspend system and lock screen
-bindsym $mod+Shift+s exec --no-startup-id /usr/bin/systemctl suspend
-exec swayidle -w \
-    timeout 300 '$Locker' \
-    timeout 600 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
-    before-sleep '$Locker'
-
-# HDMI Display controls
-# TODO setup a better control for this
-bindsym $mod+w exec --no-startup-id ~/.config/i3-scripts/hdmi-second-monitor.sh && ~/.config/polybar/launch.sh
-bindsym $mod+Shift+w exec --no-startup-id /usr/bin/xrandr --output HDMI1 --off && ~/.config/polybar/launch.sh
-
+# some windows should start w/ floating
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
-
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-
-for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down $height px
 for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)VirtualBox"] floating enable
 for_window [class="(?i)nm-connection-editor"] floating enable
-
-# Named instances
+# custom
 for_window [app_id="__nmtui"] floating enable
-for_window [app_id="__sudo"] floating enable
 for_window [app_id="__floating"] floating enable
 
-###########
-# Autostart
-###########
 
-# Screenshot w/ maim
-bindsym $mod+Shift+t exec grim -g "$(slurp)" ~/screenshot-$(date +%m-%d-%Y-%H-%M-%S).png
-
+### Autostart
+#
 # Start waybar
 bar {
-    swaybar_command /usr/bin/waybar
+    swaybar_command /usr/bin/waybar -c ~/.config/waybar/config
     font pango:Hack 14
 }
-
 # Set ALSA Master volume to 0% and mute
 exec --no-startup-id amixer -q sset Master 0% mute
-
 # Start redshift
-exec --no-startup-id /usr/bin/redshift
+#exec --no-startup-id /usr/bin/redshift
 # TODO
-
-# Set background
-output "*" bg ~/Pictures/Backgrounds/simple_circuit.png fill
-
-# Set colorscheme to match
-#exec --no-startup-id /usr/bin/wal -R
