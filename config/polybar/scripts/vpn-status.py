@@ -9,55 +9,24 @@
 import requests
 import subprocess
 import sys
+import json
 from subprocess import DEVNULL as devnull
 
 
-def get_ip():
+def get_ip_data():
     '''return IP address from ifconfig.me'''
     try:
-        res = requests.get("https://ifconfig.me/ip", timeout=1)
+        res = requests.get("http://ip-api.com/json", timeout=1)
     except:
         print(" Couldn't resolve IP")
         sys.exit(1)
     return res.text
 
 
-def get_geodata(ip):
-    '''return geolocation data for public IP from whatsmyip.org'''
-    url = 'https://www.whatsmyip.org/data/ip-geo-location.php'
-    payload = {'geoipinput': ip}
-    headers = {'Content-Type':'application/x-www-form-urlencoded',
-               'Referer':'https://www.whatsmyip.org/ip-geo-location/?ip=%s' % ip
-    }
-    try:
-        res = requests.post(url, data=payload, headers=headers, timeout=4)
-    except:
-        print(" geoip timeout")
-        sys.exit()
-    return res.text
-
-
-
-def format_output(res_string):
-    '''extract and format geodata'''
-    city         = res_string.split('|')[0]
-    state_code   = res_string.split('|')[1]
-    country_code = res_string.split('|')[2]
-
-    if country_code != '?':
-        if city != '?':
-            return "%s, %s" % (city, country_code)
-        else:
-            return "%s" % country_code
-    else:
-        return "location unknown"
-
-
 def main():
     '''get public ip, and associated geolocation data'''
-    ip = get_ip()
-    geodata = get_geodata(ip)
-    location = format_output(geodata)
+    ip_data = json.loads(get_ip_data().encode('utf-8'))
+    location = "{}, {}".format(ip_data['city'], ip_data['country'])
 
     # vpn processes to look for
     vpn_processes = "openvpn|openconnect"

@@ -15,6 +15,7 @@ maim                # screenshot utility
 ncdu                # ncurses frontend for disk usage
 nerd-fonts-hack
 networkmanager
+pacman-contrib      # pacman script & tools
 patch               # utility to apply patch files
 pavucontrol         # PulseAudio frontend, nice to help route audio over HDMI
 picom               # compositor for X
