@@ -1,5 +1,8 @@
 # sway config file
 
+### Disable xwayland (testing)
+#xwayland disable
+
 ### Variables and global configs
 #
 # 'Windows' key as $mod, left alt as $alt
@@ -10,7 +13,7 @@ set $terminal /usr/bin/termite
 # set default launcher
 # NOTE: for dmenu, pipe command to swaymsg so resulting window can be opened
 # on original workspace
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu dmenu_path | dmenu -fn "Hack-18" | xargs swaymsg exec --
 #set $menu exec /usr/bin/bemenu-run --no-overlap --fn "Hack-14"
 # font
 font pango:Hack 14
@@ -42,12 +45,20 @@ output eDP-1 {
 }
 # lock screen
 set $Locker exec swaylock -f -c 000000
+
 # idle config - lock screen after 300 seconds, turn off displays after 600, and
+#   284 seconds: save current backlight
+#   285 seconds: reduce current backlight by 50%
+#   300 seconds: lock screen
+#   600 seconds: turn off display
+#   on resume:   turn on display, restore backlight to saved level
 # guarantees screen locks before sleep
-exec swayidle -w \
+exec /usr/bin/swayidle -w \
+    timeout 284 '/usr/bin/light -O' \
+    timeout 285 '/usr/bin/light -T 0.5' \
     timeout 300 '$Locker' \
     timeout 600 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
+    resume 'swaymsg "output * dpms on" && /usr/bin/light -I' \
     before-sleep '$Locker'
 
 
@@ -88,8 +99,8 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- unmute
 # Screen Brightness Controls TODO
-bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 20
+bindsym XF86MonBrightnessUp exec /usr/bin/light -A 10
+bindsym XF86MonBrightnessDown exec /usr/bin/light -U 20
 
 
 ### Windows and workspaces
@@ -187,14 +198,15 @@ for_window [class="(?i)nm-connection-editor"] floating enable
 # custom
 for_window [app_id="__nmtui"] floating enable
 for_window [app_id="__floating"] floating enable
+# fullscreen should inhibit locking
+for_window [class="firefox"] inhibit_idle fullscreen
 
 
 ### Autostart
 #
-# Start waybar
+# Start waybar, configs in ~/.config/waybar
 bar {
-    swaybar_command /usr/bin/waybar -c ~/.config/waybar/config
-    font pango:Hack 14
+    swaybar_command /usr/bin/waybar
 }
 # Set ALSA Master volume to 0% and mute
 exec --no-startup-id amixer -q sset Master 0% mute
