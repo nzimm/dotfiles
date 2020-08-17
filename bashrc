@@ -9,6 +9,7 @@
 export TERM=xterm-256color
 
 # xsecurelock settings
+export XSECURELOCK_NO_COMPOSITE=1
 export XSECURELOCK_AUTH_TIMEOUT=10
 export XSECURELOCK_BLANK_TIMEOUT=10
 export XSECURELOCK_BURNIN_MITIGATION=350
@@ -39,11 +40,8 @@ fi
 
 function echo_branch() {
     BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/' | tr -d '()'`
-    if [ ! "${BRANCH}" == "" ]
-    then
-        echo "${BRANCH}"
-    else
-        echo ""
+    if [ ! "${BRANCH}" == "" ]; then
+        echo -n "${BRANCH}"
     fi
 }
 
@@ -54,24 +52,24 @@ function echo_conda_env() {
 }
 
 # ANSI color codes
-RESET='\001\033[0m\002'
-WHITE='\001\033[01;37m\002'
-RED='\001\033[00;31m\002'
-GREEN='\001\033[00;32m\002'
-YELLOW='\001\033[00;33m\002'
-BLUE='\001\033[00;34m\002'
-MAGENTA='\001\033[00;35m\002'
-PURPLE='\001\033[00;35m\002'
-CYAN='\001\033[00;36m\002'
-LIGHTGRAY='\001\033[00;37m\002'
-B_RED='\001\033[01;31m\002'
-B_GREEN='\001\033[01;32m\002'
-B_YELLOW='\001\033[01;33m\002'
-B_BLUE='\001\033[01;34m\002'
-B_MAGENTA='\001\033[01;35m\002'
-B_PURPLE='\001\033[01;35m\002'
-B_CYAN='\001\033[01;36m\002'
-B_WHITE='\001\033[01;37m\002'
+RESET="\[\033[0m\]"
+WHITE="\[\033[00;37m\]"
+RED="\[\033[00;31m\]"
+GREEN="\[\033[00;32m\]"
+YELLOW="\[\033[00;33m\]"
+BLUE="\[\033[00;34m\]"
+MAGENTA="\[\033[00;35m\]"
+PURPLE="\[\033[00;35m\]"
+CYAN="\[\033[00;36m\]"
+LIGHTGRAY="\[\033[00;37m\]"
+B_RED="\[\033[01;31m\]"
+B_GREEN="\[\033[01;32m\]"
+B_YELLOW="\[\033[01;33m\]"
+B_BLUE="\[\033[01;34m\]"
+B_MAGENTA="\[\033[01;35m\]"
+B_PURPLE="\[\033[01;35m\]"
+B_CYAN="\[\033[01;36m\]"
+B_WHITE="\[\033[01;37m\]"
 
 # basic prompt
 #if [[ "$(whoami)" == "root" ]]; then
@@ -84,13 +82,38 @@ B_WHITE='\001\033[01;37m\002'
 # NOTE: command expansion must be escaped, e.g. `\$()` rather than `$()`, so
 #       that the command runs each time the prompt prints. Otherwise, commands
 #       will only execute when this file is sourced.
-PS1="${LIGHTGRAY}\342\224\214\342\224\200[${GREEN}$(if [[ ${EUID} == 0 ]]; then echo'root@\h'; else echo '\u@\h'; fi)${LIGHTGRAY}]\342\224\200[${GREEN}\w${LIGHTGRAY}]\$([ \$(echo_branch) ] && echo \"\[\342\224\200\][${WHITE}\$(echo_branch)${LIGHTGRAY}]\")\n\342\224\224\342\224\200\342\[\224\200\342\]\[\225\274\033[0m${RESET} \$ "
-
-
+prompt_cmd () {
+    # Save current working directory
+    pwd > "${HOME}/.cwd"
+   PS1=""
+    # Add "┌─["
+    PS1+="${LIGHTGRAY}\342\224\214\342\224\200["
+    # Add username and hostname - if root, make username red
+    if [[ $EUID == 0 ]]; then
+        PS1+="${B_RED}root${GREEN}@\h"
+        END_CHR="#"
+    else
+        PS1+="${GREEN}\u@\h"
+        END_CHR="$"
+    fi
+    # Add "]─["
+    PS1+="${LIGHTGRAY}]\342\224\200["
+    # Add directory
+    PS1+="${GREEN}\w"
+    # Add "]-[branch]\n" if in git repo, otherwise just "]\n"
+    if [ ! $(echo_branch) == "" ]; then
+        PS1+="${LIGHTGRAY}]\342\224\200["
+        PS1+="${B_WHITE}$(echo_branch)"
+        PS1+="${LIGHTGRAY}]\n"
+    else
+        PS1+="${LIGHTGRAY}]\n"
+    fi
+    # Add "└─╼ $ "
+    PS1+="${LIGHTGRAY}\342\224\224\342\224\200\342\225\274 ${END_CHR}${RESET} "
+}
 
 # PROMPT_COMMAND runs before displaying prompt
-#   Save current working directory to volatile storage
-PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
+PROMPT_COMMAND="prompt_cmd"
 
 # New terminals cd into PWD, rather than at home dir
 [[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
