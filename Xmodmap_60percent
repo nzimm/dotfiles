@@ -1,19 +1,23 @@
-keycode 66 = Mode_switch
-keysym h = h H Left
-keysym j = j J Down
-keysym k = k K Up
-keysym l = l L Right
-
-keysym u = u U Prior
-keysym o = o O Next
-keysym y = y Y Home
-keysym n = n N End
-keysym BackSpace = BackSpace BackSpace Delete
-
-keysym q = q Q XF86AudioPrev
-keysym w = w W XF86AudioPlay
-keysym e = e E XF86AudioNext
-
-keysym s = s S XF86AudioLowerVolume
-keysym d = d D XF86AudioRaiseVolume
-keysym f = f F XF86AudioMute
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+        include "us"
+	include "level3(caps_switch)"
+	name[Group1] = "English (US, custom 60% modifiers)";
+	key <AD01> { [ q, Q, XF86AudioPrev, XF86AudioPrev ] };
+	key <AD02> { [ w, W, XF86AudioPlay, XF86AudioPlay ] };
+	key <AD03> { [ e, E, XF86AudioNext, XF86AudioNext ] };
+	key <AD06> { [ y, Y, Home, Home ] };
+	key <AD07> { [ u, U, Prior, Prior ] };
+	key <AD09> { [ o, O, Next, Next ] };
+	key <AC02> { [ s, S, XF86AudioLowerVolume, XF86AudioLowerVolume ] };
+	key <AC03> { [ d, D, XF86AudioRaiseVolume, XF86AudioRaiseVolume ] };
+	key <AC04> { [ f, F, XF86AudioMute, XF86AudioMute ] };
+	key <AC05> { [ g, G, XF86AudioMicMute, XF86AudioMicMute ] };
+	key <AC06> { [ h, H, Left, Left ] };
+	key <AC07> { [ j, J, Down, Down ] };
+	key <AC08> { [ k, K, Up, Up ] };
+	key <AC09> { [ l, L, Right, Right ] };
+	key <AB06> { [ n, N, End, End ] };
+        key <BKSP> { [ BackSpace, BackSpace, Delete, Delete ] };
+        key <FK4>  { [ XF86AudioMicMute ] };
+};
