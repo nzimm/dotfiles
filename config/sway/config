@@ -30,7 +30,7 @@ default_border none
 floating_modifier $mod
 # i3 config options
 workspace_auto_back_and_forth yes
-floating_minimum_size 1200 x 800
+#floating_minimum_size 1200 x 800
 floating_maximum_size -1 x -1
 
 
@@ -41,7 +41,7 @@ output * bg ~/Pictures/Backgrounds/simple_circuit.png fill
 # laptop main output - TODO set up multi-monitor support for hdmi
 output eDP-1 {
     resolution 2560x1440
-    scale 1
+    scale 1.1
 }
 # lock screen
 set $Locker exec swaylock -f -c 000000
@@ -86,7 +86,7 @@ bindsym $mod+Return exec --no-startup-id $terminal
 bindsym $alt+f exec --no-startup-id /usr/bin/firefox
 bindsym $mod+Control+w exec --no-startup-id $terminal --name="__nmtui" -e "nmtui"
 # Screenshot w/ maim
-bindsym $mod+Shift+t exec grim -g "$(slurp)" ~/screenshot-$(date +%m-%d-%Y-%H-%M-%S).png
+bindsym $mod+Shift+t exec grim -t jpeg -g "$(slurp)" ~/screenshots/screenshot-$(date +%m-%d-%Y-%H-%M-%S).jpeg
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # exit sway (logs you out of your X session)
