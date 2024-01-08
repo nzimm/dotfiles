@@ -1,0 +1,22 @@
+import = ["/home/nzimm/.config/alacritty/color-schemes/tokyo_night.toml"]
+
+[font]
+size = 12.0
+
+[font.bold]
+style = "Bold"
+
+[font.italic]
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font Mono"
+style = "Regular"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[window]
+decorations = "none"
+opacity = 0.95
