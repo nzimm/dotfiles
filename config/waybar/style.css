@@ -1,6 +1,6 @@
 * {
   /* `otf-font-awesome` is required to be installed for icons */
-  font-family: "Hack Regular Nerd Font Complete Mono", Monospace;
+  font-family: "Hack Nerd Font Mono", Monospace;
   font-size: 20px;
   /* border: none; */
   /* border-radius: 0; */
@@ -74,6 +74,10 @@ https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-
 #workspaces button.focused {
   color: #268bd2;
 }
+#workspaces button.visible {
+  color: #268bd2;
+}
+/*
 #workspaces button:hover {
   box-shadow: inherit;
   text-shadow: inherit;
@@ -81,6 +85,7 @@ https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-
   border: #1a1a1a;
   padding: 0 3px;
 }
+*/
 
 #workspaces,
 #custom-media,

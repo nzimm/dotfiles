@@ -29,9 +29,9 @@
     "custom/left-arrow-dark",
     "temperature",
     "custom/left-arrow-light",
-    "custom/left-arrow-dark",
-    "backlight",
-    "custom/left-arrow-light",
+//    "custom/left-arrow-dark",
+//    "backlight",
+//    "custom/left-arrow-light",
     "custom/left-arrow-dark",
     "battery",
     "custom/left-arrow-light",
@@ -48,14 +48,14 @@
   //   "all-outputs": true,
   //   "format": "{name}: {icon}",
   //   "format-icons": {
-  //     "1": "",
-  //     "2": "",
-  //     "3": "",
-  //     "4": "",
-  //     "5": "",
-  //     "urgent": "",
-  //     "focused": "",
-  //     "default": ""
+  //     "1": " ",
+  //     "2": " ",
+  //     "3": " ",
+  //     "4": " ",
+  //     "5": " ",
+  //     "urgent": " ",
+  //     "focused": " ",
+  //     "default": " "
   //   }
   // },
 
@@ -90,7 +90,7 @@
     "return-type": "json",
     "max-length": 30,
     "format-icons": {
-      "spotify": "",
+      "spotify": " ",
       "default": "🎜"
     },
     "escape": true,
@@ -104,8 +104,10 @@
   },
   "clock": {
     // "timezone": "America/New_York",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "{:%Y-%m-%d}"
+    "format": "{:%H:%M}",
+    "format-alt": "{:%H:%M:%S %m-%d-%Y}",
+    "tooltip-format": "<big>{:%B %d %Y}</big>\n<tt><small>{calendar}</small></tt>",
+    "interval": 5
   },
   "cpu": {
     "format": "{usage}% CPU",
@@ -135,38 +137,38 @@
       "critical": 15
     },
     "format": "{capacity}% {icon}",
-    "format-charging": "{capacity}% ",
-    "format-plugged": "{capacity}% ",
+    "format-charging": "{capacity}%  ",
+    "format-plugged": "{capacity}%  ",
     "format-alt": "{time} {icon}",
     // "format-good": "", // An empty format will hide the module
     // "format-full": "",
-    "format-icons": ["", "", "", "", ""]
+    "format-icons": [" ", " ", " ", " ", " "]
   },
 
   "network": {
     // "interface": "wlp2*", // (Optional) To force the use of this interface
-    "format-wifi": "{essid} ({signalStrength}%) ",
-    "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "Disconnected ⚠",
+    "format-wifi": "{essid} ({signalStrength}%)  ",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
+    "format-linked": "{ifname} (No IP)  ",
+    "format-disconnected": "Disconnected ⚠ ",
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
   },
   "pulseaudio": {
     "scroll-step": 1, // %, can be a float
     "format": "{volume}% {icon} {format_source}",
     "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": "🔇 {icon} {format_source}",
-    "format-muted": "🔇 {format_source}",
-    "format-source": "{volume}% ",
-    "format-source-muted": "",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}%  ",
+    "format-source-muted": " ",
     "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
+      "headphone": " ",
+      "hands-free": " ",
+      "headset": " ",
       "phone": "",
       "portable": "",
-      "car": "",
-      "default": ["", "", ""]
+      "car": " ",
+      "default": [" ", " ", " "]
     },
     "on-click": "pavucontrol"
   },
